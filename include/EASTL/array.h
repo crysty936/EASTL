@@ -131,7 +131,15 @@ namespace eastl
 
 	}; // class array
 
-	// declaring a C-style array of size 0 is not valid C++.
+
+	// Begin: Cristian
+	// Utility function to convert array to vector
+	template <typename T, size_t N /*= 1*/>
+	eastl::vector<T> eastl::array<T, N>::toVector() const
+	{
+		return eastl::vector<glm::vec3>(this->begin(), this->end());
+	}
+// End	// declaring a C-style array of size 0 is not valid C++.
 	// thus, we have to declare this partial specialization:
 	template <typename T>
 	struct array<T, 0>
