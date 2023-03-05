@@ -21,7 +21,16 @@ include(CommonCppFlags)
 # Library definition
 #-------------------------------------------------------------------------------------------
 file(GLOB EASTL_SOURCES "source/*.cpp")
-add_library(EASTL ${EASTL_SOURCES})
+# add_library(EASTL ${EASTL_SOURCES})
+
+# used to add all .cpp and .h files under source
+file(GLOB_RECURSE source_files CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/source/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/include/EASTL/*.h")
+
+# used to create filters for all files one to one with their folder structure
+source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${source_files})
+
+add_library(EASTL ${source_files})
+
 
 if (MSVC)
     set(EASTL_NATVIS_DIR "doc")
@@ -74,3 +83,12 @@ install(DIRECTORY include/EASTL DESTINATION include)
 if (MSVC)
     install(FILES ${EASTL_NATVIS_FILE} DESTINATION ${EASTL_NATVIS_DIR})
 endif()
+
+# Additional includes necessary for different functionalities
+add_subdirectory(test/packages/EAStdC)
+add_subdirectory(test/packages/EAAssert)
+add_subdirectory(test/packages/EAThread)
+
+target_link_libraries(EASTL EAStdC)
+target_link_libraries(EASTL EAAssert)
+target_link_libraries(EASTL EAThread)

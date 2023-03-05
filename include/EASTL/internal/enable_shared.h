@@ -57,6 +57,14 @@ namespace eastl
 	protected:
 		template <typename U> friend class shared_ptr;
 
+		template <typename TCurrent>
+		shared_ptr<TCurrent> this_shared(TCurrent* inThis)
+		{
+			shared_ptr<T> baseShared = shared_ptr<T>(mWeakPtr);
+
+			return eastl::static_pointer_cast<TCurrent>(baseShared);
+		}
+
 		EA_CONSTEXPR enable_shared_from_this() EA_NOEXCEPT
 			{ }
 
