@@ -104,3 +104,14 @@ install(DIRECTORY include/EASTL DESTINATION include)
 if (MSVC)
     install(FILES ${EASTL_NATVIS_FILE} DESTINATION ${EASTL_NATVIS_DIR})
 endif()
+
+# Additional includes necessary for different functionalities
+add_subdirectory(test/packages/EAStdC)
+add_subdirectory(test/packages/EAAssert)
+add_subdirectory(test/packages/EAThread)
+
+target_link_libraries(EASTL EAStdC)
+target_link_libraries(EASTL EAAssert)
+target_link_libraries(EASTL EAThread)
+
+

@@ -22,6 +22,7 @@
 #include <EASTL/algorithm.h>
 #include <EASTL/utility.h>
 #include <stddef.h>
+#include "EASTL/vector.h"
 
 #if EASTL_EXCEPTIONS_ENABLED
 	EA_DISABLE_ALL_VC_WARNINGS()
@@ -129,17 +130,23 @@ namespace eastl
 		bool validate() const;
 		int  validate_iterator(const_iterator i) const;
 
-	}; // class array
+		// Begin: Cristian
+		// Utility function to convert array to vector
+		eastl::vector<T> toVector() const;
+		// End	
 
+	}; // class array
 
 	// Begin: Cristian
 	// Utility function to convert array to vector
 	template <typename T, size_t N /*= 1*/>
 	eastl::vector<T> eastl::array<T, N>::toVector() const
 	{
-		return eastl::vector<glm::vec3>(this->begin(), this->end());
+		return eastl::vector<T>(this->begin(), this->end());
 	}
-// End	// declaring a C-style array of size 0 is not valid C++.
+	// End	
+
+	// declaring a C-style array of size 0 is not valid C++.
 	// thus, we have to declare this partial specialization:
 	template <typename T>
 	struct array<T, 0>
