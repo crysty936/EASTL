@@ -72,8 +72,8 @@ target_include_directories(EASTL PUBLIC include)
 #-------------------------------------------------------------------------------------------
 FetchContent_Declare(
   EABase
-  GIT_REPOSITORY https://github.com/electronicarts/EABase.git
-  GIT_TAG        123363eb82e132c0181ac53e43226d8ee76dea12
+  GIT_REPOSITORY https://github.com/crysty936/EABase.git
+  GIT_TAG        origin/Modified
   GIT_SUBMODULES "" # This should be temporary until we update the cyclic submodule dependencies in EABase.
 )
 
@@ -106,9 +106,9 @@ if (MSVC)
 endif()
 
 # Additional includes necessary for different functionalities
-add_subdirectory(test/packages/EAStdC)
-add_subdirectory(test/packages/EAAssert)
-add_subdirectory(test/packages/EAThread)
+add_subdirectory(EAStdC)
+add_subdirectory(EAAssert)
+add_subdirectory(EAThread)
 
 target_link_libraries(EASTL EAStdC)
 target_link_libraries(EASTL EAAssert)
